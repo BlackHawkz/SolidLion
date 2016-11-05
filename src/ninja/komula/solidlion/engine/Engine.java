@@ -38,7 +38,6 @@ public class Engine implements Runnable {
         double lag = 0.0;
         double NS_PER_UPDATE = 1000000000.0/60.0;
         while(isRunning){
-            setDebugFPS(getDebugFPS());
             double current = System.nanoTime();
             double elapsed = current-previous;
             previous = current;

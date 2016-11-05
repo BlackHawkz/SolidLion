@@ -61,5 +61,6 @@ public class Renderer {
         for(int i=0; i < pixels.length; i++){
             pixels[i] = rand.nextInt(0xFFFFFF);
         }
+        window.getGraphics().drawImage(image,0,0,getWidth(),getHeight(),null);
     }
 }
