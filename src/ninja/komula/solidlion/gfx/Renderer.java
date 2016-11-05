@@ -15,6 +15,7 @@ public class Renderer {
     private int[] pixels;
     private BufferedImage image;
     private Random rand = new Random();
+    private Window window;
 
     public Renderer(int width, int height){
         setHeight(height);
@@ -37,6 +38,15 @@ public class Renderer {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    /**
+     * setDefaultWindow provides a way to pass a {@link ninja.komula.solidlion.gfx.Window} to the renderer
+     * @param window A {@link ninja.komula.solidlion.gfx.Window} object
+     */
+
+    public void setDefaultWindow(Window window){
+        this.window = window;
     }
 
     public int getWidth() {

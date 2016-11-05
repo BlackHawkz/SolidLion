@@ -11,7 +11,14 @@ public class Window implements IWindow {
 
     private int height,width;
     private String title;
-    Frame frame;
+    private Frame frame;
+
+
+    /**
+     * Creates and sets the basic properties of a window. Uses {@link Frame} as the base class.
+     * @param width The desired width of the window.
+     * @param height The desired height of the window.
+     */
 
     @Override
     public void create_window(int width, int height) {
