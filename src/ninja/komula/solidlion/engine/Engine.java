@@ -28,6 +28,7 @@ public class Engine implements Runnable {
         gameWindow.create_window(width,height);
         renderer.setDefaultWindow(gameWindow);
         thread = new Thread(this);
+        game.init();
         thread.start();
     }
 
@@ -47,7 +48,7 @@ public class Engine implements Runnable {
                 lag -= NS_PER_UPDATE;
                 updates++;
             }
-
+            game.render();
             renderer.render();
             frames++;
 
@@ -70,6 +71,9 @@ public class Engine implements Runnable {
     }
     public Window getGameWindow(){
         return gameWindow;
+    }
+    public Renderer getRenderer(){
+        return renderer;
     }
 
     @Override

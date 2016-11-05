@@ -57,10 +57,22 @@ public class Renderer {
         return height;
     }
 
-    public void render(){
-        for(int i=0; i < pixels.length; i++){
-            pixels[i] = rand.nextInt(0xFFFFFF);
+    public int[] getPixels(){
+        return pixels;
+    }
+
+    /**
+     * Doesn't do anything,  depricated just here incase.
+     * @param p
+     */
+
+    public void setPixels(int[] p){
+        for(int i=0; i< p.length; i++){
+            pixels[i] = p[i];
         }
+    }
+
+    public void render(){
         window.getGraphics().drawImage(image,0,0,getWidth(),getHeight(),null);
     }
 }
