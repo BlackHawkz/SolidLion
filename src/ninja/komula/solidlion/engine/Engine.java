@@ -22,22 +22,23 @@ public class Engine implements Runnable {
      */
 
     public void start(IEngine game, int width, int height){
-        renderer = new Renderer(width,height);
-        this.game = game;
+
         gameWindow = new Window();
         gameWindow.create_window(width,height);
-        renderer.setDefaultWindow(gameWindow);
+        renderer = new Renderer(gameWindow,width,height);
+        this.game = game;
+
         thread = new Thread(this);
-        game.init();
+
         thread.start();
     }
 
     private void run(IEngine game){
-
+        game.init();
         double previousMili = System.currentTimeMillis();
         double previous = System.nanoTime();
         double lag = 0.0;
-        double NS_PER_UPDATE = 1000000000.0/60.0;
+        double NS_PER_UPDATE = 1000000000.0/25.0;
         while(isRunning){
             double current = System.nanoTime();
             double elapsed = current-previous;
@@ -48,8 +49,11 @@ public class Engine implements Runnable {
                 lag -= NS_PER_UPDATE;
                 updates++;
             }
+            renderer.clearScreen();
             game.render();
             renderer.render();
+
+
             frames++;
 
             if(System.currentTimeMillis()-previousMili >=1000){

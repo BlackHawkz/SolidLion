@@ -23,8 +23,8 @@ public class Window implements IWindow {
     @Override
     public void create_window(int width, int height) {
         frame  = new Frame();
-        setWidth(width);
-        setHeight(height);
+        setWidth(width-3);
+        setHeight(height-26); //g.translate(0,22) needs to be accounted for
         frame.setResizable(false);
         frame.setSize(getWidth(),getHeight());
         frame.setLocationRelativeTo(null);
@@ -68,5 +68,9 @@ public class Window implements IWindow {
 
     public Graphics getGraphics(){
         return frame.getGraphics();
+    }
+
+    public Frame getFrame(){
+        return frame;
     }
 }
