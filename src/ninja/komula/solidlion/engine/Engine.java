@@ -38,10 +38,12 @@ public class Engine implements Runnable {
         double previousMili = System.currentTimeMillis();
         double previous = System.nanoTime();
         double lag = 0.0;
-        double NS_PER_UPDATE = 1000000000.0/25.0;
+        double NS_PER_UPDATE = 1000000000.0/60.0;
+        double current;
+        double elapsed;
         while(isRunning){
-            double current = System.nanoTime();
-            double elapsed = current-previous;
+            current = System.nanoTime();
+            elapsed = current-previous;
             previous = current;
             lag += elapsed;
             while (lag >= NS_PER_UPDATE){

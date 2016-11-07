@@ -23,10 +23,13 @@ public class Window implements IWindow {
     @Override
     public void create_window(int width, int height) {
         frame  = new Frame();
-        setWidth(width-3);
-        setHeight(height-26); //g.translate(0,22) needs to be accounted for
+        setWidth(width);
+        setHeight(height); //g.translate(0,22) needs to be accounted for
         frame.setResizable(false);
-        frame.setSize(getWidth(),getHeight());
+        frame.setPreferredSize(new Dimension(getWidth(),getHeight()));
+
+        frame.pack();
+
         frame.setLocationRelativeTo(null);
 
         frame.addWindowListener(new WindowAdapter() {

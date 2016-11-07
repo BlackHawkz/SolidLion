@@ -21,6 +21,7 @@ public class Renderer {
     private  GraphicsEnvironment env;
     private GraphicsDevice device;
     private GraphicsConfiguration config ;
+    private boolean fullscreen = false;
 
     public Renderer(Window gameWindow, int width, int height){
         this.window = gameWindow;
@@ -34,6 +35,7 @@ public class Renderer {
         image = config.createCompatibleImage(getWidth(),getHeight());
         pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
         System.out.println("asdfasdfasd: "+pixels.length);
+
 
     }
 
@@ -62,19 +64,25 @@ public class Renderer {
 
     public void setDeviceFullscreen(boolean enabled){
         if(enabled) {
-            device.setFullScreenWindow(window.getFrame());
-            setWidth(device.getFullScreenWindow().getWidth());
-            setHeight(device.getFullScreenWindow().getHeight());
-            image = device.getFullScreenWindow().getGraphicsConfiguration().createCompatibleImage(getWidth(),getHeight());
+            config.getDevice().setFullScreenWindow(window.getFrame());
+            setWidth(config.getDevice().getFullScreenWindow().getWidth());
+            setHeight(config.getDevice().getFullScreenWindow().getHeight());
+            image = config.createCompatibleImage(getWidth(),getHeight());
             pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+
+            fullscreen = true;
         }else{
-            device.setFullScreenWindow(null);
+            config.getDevice().setFullScreenWindow(null);
             setWidth(window.getWidth());
             setHeight(window.getHeight());
             image = config.createCompatibleImage(getWidth(),getHeight());
             pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+
+            System.out.println(image.getHeight());
+
+            fullscreen = false;
         }
-        System.out.println(pixels.length);
+        System.out.println("W: "+getWidth()+"H: "+getHeight());
     }
 
     public int getWidth() {
@@ -117,8 +125,16 @@ public class Renderer {
         }
     }
 
-    public void render(){
+    public boolean isFullScreen(){
+        return fullscreen;
+    }
 
-        window.getGraphics().drawImage(image,3,26,getWidth(),getHeight(),null);
+    public void render(){
+        if(isFullScreen()){
+            window.getGraphics().drawImage(image, 0,0, getWidth(), getHeight(), null);
+        }else {
+            window.getGraphics().drawImage(image, window.getFrame().getInsets().left, window.getFrame().getInsets().top, getWidth(), getHeight(), null);
+        }
+
     }
 }
