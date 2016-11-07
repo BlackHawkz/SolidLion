@@ -69,7 +69,7 @@ public class Renderer {
             setHeight(config.getDevice().getFullScreenWindow().getHeight());
             image = config.createCompatibleImage(getWidth(),getHeight());
             pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
-
+            window.getGraphics().translate(0,0);
             fullscreen = true;
         }else{
             config.getDevice().setFullScreenWindow(null);
@@ -77,6 +77,7 @@ public class Renderer {
             setHeight(window.getHeight());
             image = config.createCompatibleImage(getWidth(),getHeight());
             pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+            window.getGraphics().translate(window.getFrame().getInsets().left,window.getFrame().getInsets().top);
 
             System.out.println(image.getHeight());
 
@@ -130,11 +131,11 @@ public class Renderer {
     }
 
     public void render(){
-        if(isFullScreen()){
+      //  if(isFullScreen()){
             window.getGraphics().drawImage(image, 0,0, getWidth(), getHeight(), null);
-        }else {
-            window.getGraphics().drawImage(image, window.getFrame().getInsets().left, window.getFrame().getInsets().top, getWidth(), getHeight(), null);
-        }
+       // }else {
+       //     window.getGraphics().drawImage(image, window.getFrame().getInsets().left, window.getFrame().getInsets().top, getWidth(), getHeight(), null);
+       // }
 
     }
 }

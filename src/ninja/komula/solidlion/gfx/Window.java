@@ -70,7 +70,9 @@ public class Window implements IWindow {
     }
 
     public Graphics getGraphics(){
-        return frame.getGraphics();
+        Graphics g = frame.getGraphics();
+
+        return g;
     }
 
     public Frame getFrame(){
