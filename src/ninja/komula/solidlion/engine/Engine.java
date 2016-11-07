@@ -2,6 +2,7 @@ package ninja.komula.solidlion.engine;
 import ninja.komula.solidlion.gfx.Renderer;
 import ninja.komula.solidlion.gfx.Window;
 import ninja.komula.solidlion.input.Keyboard;
+import ninja.komula.solidlion.input.Mouse;
 
 /**
  * Created by luke on 11/3/2016.
@@ -12,6 +13,7 @@ public class Engine implements Runnable {
     private IEngine game;
     private Window gameWindow;
     private Keyboard keyboardInput;
+    private Mouse mouseInput;
     private Thread thread;
     private boolean debugFPS = false;
     private int frames=0, updates=0;
@@ -33,7 +35,10 @@ public class Engine implements Runnable {
         thread = new Thread(this);
 
         keyboardInput = new Keyboard();
+        mouseInput = new Mouse();
         gameWindow.getFrame().addKeyListener(keyboardInput);
+        gameWindow.getFrame().addMouseListener(mouseInput);
+        gameWindow.getFrame().addMouseMotionListener(mouseInput);
 
 
         thread.start();
@@ -55,6 +60,7 @@ public class Engine implements Runnable {
 
 
             keyboardInput.poll();
+            mouseInput.poll();
             while (lag >= NS_PER_UPDATE){
                 game.update();
                 lag -= NS_PER_UPDATE;
@@ -94,6 +100,13 @@ public class Engine implements Runnable {
     public Keyboard getKeyboardInput(){
         if(keyboardInput != null){
             return keyboardInput;
+        }
+        return null;
+    }
+
+    public Mouse getMouseInput(){
+        if(mouseInput != null){
+            return mouseInput;
         }
         return null;
     }
