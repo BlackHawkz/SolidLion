@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.util.Random;
 
+import static javafx.scene.transform.Transform.translate;
 import static jdk.nashorn.internal.objects.Global.print;
 
 /**
@@ -69,7 +70,8 @@ public class Renderer {
             setHeight(config.getDevice().getFullScreenWindow().getHeight());
             image = config.createCompatibleImage(getWidth(),getHeight());
             pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
-            window.getGraphics().translate(0,0);
+            Graphics g = window.getGraphics();
+            g.translate(50,50); //Doesn't do shit because the method refreshes the graphics object back to 0,0 or something. Figure it out bitch
             fullscreen = true;
         }else{
             config.getDevice().setFullScreenWindow(null);
